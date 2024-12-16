@@ -4,4 +4,4 @@
 # Order is important: the last matching pattern has the highest precedence
 
 # These owners will be the default owners for everything
-* @cloudposse-terraform-components/engineering @cloudposse-terraform-components/admins
+* @cloudposse-terraform-components/engineering @cloudposse-terraform-components/admins @mergify[bot]
