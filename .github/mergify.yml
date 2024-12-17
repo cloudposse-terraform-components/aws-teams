@@ -1,1 +1,9 @@
 extends: .github
+merge_protections:
+  - name: Require terratest
+    description: This rule require terratest status
+    if:
+      - files ~= \.(?!md|gif|png|jpg|mp4).*
+      - base = main
+    success_conditions:
+      - check-success = test/terratest
