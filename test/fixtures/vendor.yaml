@@ -28,14 +28,3 @@ spec:
         - "**/*.tftmpl"
         - "**/modules/**"
       excluded_paths: []
-
-    - component: "aws-teams"
-      source: "../../src"
-      targets:
-        - "components/terraform/aws-teams"
-      included_paths:
-        - "**/*.tf"
-        - "**/*.md"
-        - "**/*.tftmpl"
-        - "**/modules/**"
-      excluded_paths: []

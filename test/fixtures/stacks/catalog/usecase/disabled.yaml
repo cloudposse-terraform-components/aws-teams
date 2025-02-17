@@ -1,10 +1,10 @@
 components:
   terraform:
-    aws-teams/basic:
+    aws-teams/disabled:
       metadata:
         component: target
       vars:
-        enabled: true
+        enabled: false
         teams_config:
           # Viewer has the same permissions as Observer but only in this account. It is not allowed access to other accounts.
           # Viewer also serves as the default configuration for all roles via the YAML anchor.
