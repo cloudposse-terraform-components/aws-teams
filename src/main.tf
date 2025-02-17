@@ -7,7 +7,7 @@ locals {
   # using an aws_iam_policy resource and then map it to the name you want to use in the
   # YAML configuration by adding an entry in `custom_policy_map`.
   supplied_custom_policy_map = {
-    team_role_access = join("", aws_iam_policy.team_role_access.*.arn)
+    team_role_access = join("", aws_iam_policy.team_role_access[*].arn)
   }
   custom_policy_map = merge(local.supplied_custom_policy_map, local.overridable_additional_custom_policy_map)
 
