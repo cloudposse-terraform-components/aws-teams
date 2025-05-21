@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "team_role_access" {
 }
 
 resource "aws_iam_policy" "team_role_access" {
-  count       = var.enabled ? 1 : 0
+  count       = module.this.enabled ? 1 : 0
   name        = format("%s-TeamRoleAccess", module.this.id)
   description = "IAM permission to use AssumeRole"
   policy      = data.aws_iam_policy_document.team_role_access.json
