@@ -53,3 +53,15 @@ variable "account_map_stage_name" {
   description = "The name of the stage where `account_map` is provisioned"
   default     = "root"
 }
+
+variable "aws_saml_component_name" {
+  type        = string
+  description = "The name of the aws-saml component"
+  default     = "aws-saml"
+}
+
+variable "account_map_component_name" {
+  type        = string
+  description = "The name of the account-map component"
+  default     = "account-map"
+}
