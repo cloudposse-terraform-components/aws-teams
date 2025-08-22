@@ -51,6 +51,38 @@ Users can again access to a role in the `identity` account through either (or bo
 The `aws-sso` component can create AWS Permission Sets that allow users to assume specific roles in the `identity`
 account. See the `aws-sso` component for details.
 
+## Known Problems
+
+### Error: `assume role policy: LimitExceeded: Cannot exceed quota for ACLSizePerRole: 2048`
+
+The `aws-teams` architecture, when enabling access to a role via lots of AWS SSO Profiles, can create large "assume
+role" policies, large enough to exceed the default quota of 2048 characters. If you run into this limitation, you will
+get an error like this:
+
+```
+Error: error updating IAM Role (acme-gbl-root-tfstate-backend-analytics-ro) assume role policy: LimitExceeded: Cannot exceed quota for ACLSizePerRole: 2048
+```
+
+This can happen in either/both the `identity` and `root` accounts (for Terraform state access). So far, we have always
+been able to resolve this by requesting a quota increase, which is automatically granted a few minutes after making the
+request. To request the quota increase:
+
+- Log in to the AWS Web console as admin in the affected account
+
+- Set your region to N. Virginia `us-east-1`
+
+- Navigate to the Service Quotas page via the account dropdown menu
+
+- Click on AWS Services in the left sidebar
+
+- Search for "IAM" and select "AWS Identity and Access Management (IAM)". (If you don't find that option, make sure you
+  have selected the `us-east-1` region.
+
+- Find and select "Role trust policy length"
+
+- Request an increase to 4096 characters
+
+- Wait for the request to be approved, usually less than a few minutes
 ## Usage
 
 **Stack Level**: Global **Deployment**: Must be deployed by SuperAdmin using `atmos` CLI
@@ -138,7 +170,10 @@ components:
 ```
 
 <!-- prettier-ignore-start -->
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
+
+
+<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |
@@ -216,45 +251,17 @@ components:
 | <a name="output_team_name_role_arn_map"></a> [team\_name\_role\_arn\_map](#output\_team\_name\_role\_arn\_map) | Map of team names to role ARNs |
 | <a name="output_team_names"></a> [team\_names](#output\_team\_names) | List of team names |
 | <a name="output_teams_config"></a> [teams\_config](#output\_teams\_config) | Map of team config with name, target arn, and description |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-<!-- prettier-ignore-end -->
+<!-- markdownlint-restore -->
 
-## Known Problems
 
-### Error: `assume role policy: LimitExceeded: Cannot exceed quota for ACLSizePerRole: 2048`
-
-The `aws-teams` architecture, when enabling access to a role via lots of AWS SSO Profiles, can create large "assume
-role" policies, large enough to exceed the default quota of 2048 characters. If you run into this limitation, you will
-get an error like this:
-
-```
-Error: error updating IAM Role (acme-gbl-root-tfstate-backend-analytics-ro) assume role policy: LimitExceeded: Cannot exceed quota for ACLSizePerRole: 2048
-```
-
-This can happen in either/both the `identity` and `root` accounts (for Terraform state access). So far, we have always
-been able to resolve this by requesting a quota increase, which is automatically granted a few minutes after making the
-request. To request the quota increase:
-
-- Log in to the AWS Web console as admin in the affected account
-
-- Set your region to N. Virginia `us-east-1`
-
-- Navigate to the Service Quotas page via the account dropdown menu
-
-- Click on AWS Services in the left sidebar
-
-- Search for "IAM" and select "AWS Identity and Access Management (IAM)". (If you don't find that option, make sure you
-  have selected the `us-east-1` region.
-
-- Find and select "Role trust policy length"
-
-- Request an increase to 4096 characters
-
-- Wait for the request to be approved, usually less than a few minutes
 
 ## References
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components)- Cloud Posse's upstream
-  component
+
+- [cloudposse-terraform-components](https://github.com/orgs/cloudposse-terraform-components/repositories) - Cloud Posse's upstream component
+
+
+
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/homepage?utm_source=github&utm_medium=readme&utm_campaign=cloudposse-terraform-components/aws-teams&utm_content=)
+
