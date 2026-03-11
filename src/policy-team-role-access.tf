@@ -1,5 +1,4 @@
 locals {
-  identity_account_id = local.full_account_map[module.account_map.outputs.identity_account_account_name]
 }
 
 data "aws_iam_policy_document" "team_role_access" {

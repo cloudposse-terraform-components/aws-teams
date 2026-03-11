@@ -11,8 +11,6 @@ locals {
   }
   custom_policy_map = merge(local.supplied_custom_policy_map, local.overridable_additional_custom_policy_map)
 
-  configured_policies = flatten([for k, v in local.roles_config : v.role_policy_arns])
-
   # Intermediate step in calculating all policy attachments.
   # Create a list of [role, arn] lists
   # role_attachments_product_list = concat([ for role_name, config in local.roles_config : setproduct([role_name], [for arn in config.role_policy_arns : arn]) ]...)
@@ -26,7 +24,6 @@ locals {
     try(local.custom_policy_map[split("+", role_arns)[1]], split("+", role_arns)[1])
   } : {}
 
-  full_account_map              = module.account_map.outputs.full_account_map
   identity_account_account_name = module.account_map.outputs.identity_account_account_name
 
   aws_partition = module.account_map.outputs.aws_partition

@@ -30,30 +30,6 @@ variable "trusted_github_repos" {
   default     = {}
 }
 
-variable "aws_saml_environment_name" {
-  type        = string
-  description = "The name of the environment where SSO is provisioned"
-  default     = "gbl"
-}
-
-variable "aws_saml_stage_name" {
-  type        = string
-  description = "The name of the stage where SSO is provisioned"
-  default     = "identity"
-}
-
-variable "account_map_environment_name" {
-  type        = string
-  description = "The name of the environment where `account_map` is provisioned"
-  default     = "gbl"
-}
-
-variable "account_map_stage_name" {
-  type        = string
-  description = "The name of the stage where `account_map` is provisioned"
-  default     = "root"
-}
-
 variable "aws_saml_component_name" {
   type        = string
   description = "The name of the aws-saml component"
