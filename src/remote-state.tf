@@ -1,6 +1,6 @@
 module "aws_saml" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.8.0"
+  version = "2.0.0"
 
   component  = var.aws_saml_component_name
   privileged = true
@@ -16,7 +16,7 @@ module "aws_saml" {
 
 module "account_map" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.8.0"
+  version = "2.0.0"
 
   component   = var.account_map_component_name
   tenant      = module.iam_roles.global_tenant_name
